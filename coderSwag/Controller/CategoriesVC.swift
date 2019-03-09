@@ -11,15 +11,14 @@ import UIKit
 class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
  
     @IBOutlet weak var categoryTable: UITableView!
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryTable.dataSource = self
         categoryTable.delegate = self
+        
+//        In some cases your controller may want to update its status bar styling again          depending on some condition like how much you have scrolled or something. In           such cases you can call.
+//        setNeedsStatusBarAppearanceUpdate()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,5 +35,11 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
 
+}
+
+extension UINavigationController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return topViewController?.preferredStatusBarStyle ?? .lightContent
+    }
 }
 
